@@ -5,7 +5,7 @@
 }
 
 @test "redis should start on boot" {
-  [ " if 'uname -a | awk {'print $4'} | cut -d "-" -f 2' == Ubuntu; then ls -l /etc/init.d/redis-memory ; elso $(chkconfig --list redis-memory | grep 3:on); fi " ]
+  [ " if 'uname -a | awk {'print $4'} | cut -d "-" -f 2' == Ubuntu; then ls -l /etc/init.d/redis-memory ; else $(chkconfig --list redis-memory | grep 3:on); fi " ]
 }
 
 @test "redis should be listening on port 7000" {
