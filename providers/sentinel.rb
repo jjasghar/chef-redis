@@ -61,14 +61,6 @@ def create_config
     owner "root"
     group "root"
     mode 00644
-    variables :sentinel => new_resource.state,
-              :master_name => new_resource.master_name,
-              :config => {
-                :port      => new_resource.port,
-                :pidfile   => new_resource.pidfile,
-                :logfile   => new_resource.log_file,
-                :daemonize => new_resource.daemonize,
-              }
     case new_resource.init_style
     when "init"
       notifies :restart, "service[redis-sentinel-#{new_resource.name}]"

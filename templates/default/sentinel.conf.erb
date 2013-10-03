@@ -1,8 +1,10 @@
-<% @sentinel.each do |key, value| -%>
-      <% next if value.nil? -%>
-<%= ChefRedis.template_format("sentinel #{key} #{@master_name}", value) %>
-<% end -%>
-<% @config.each do |key, value| -%>
-      <% next if value.nil? -%>
-<%= ChefRedis.template_format(key, value) %>
-<% end -%>
+sentinel monitor <%= node.redis.sentinel.master_name %> 127.0.0.1 <%= node.redis.sentinel.port %> <%= node.redis.sentinel.quorum %>
+sentinel down-after-milliseconds server <%= node.redis.sentinel.down_after_milliseconds %>
+sentinel failover-timeout server <%= node.redis.sentinel.failover_timeout %>
+sentinel can-failover server yes
+sentinel parallel-syncs server <%= node.redis.sentinel.parallel_syncs %>
+
+port <%= node.redis.sentinel.port %>
+pidfile <%= node.redis.sentinel.pidfile %>
+logfile stdout
+daemonize yes
