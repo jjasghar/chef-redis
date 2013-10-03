@@ -20,9 +20,8 @@ module ChefRedis
 
     def get_installed_version
       return @@version if @@version # Only shell out once per run
-      @@version = %x{
-        #{File.join(node.redis.dst_dir, 'bin/redis-server')} --version
-      }.scan(/v=((\d+\.?){3})/).flatten.first
+      @@version = MixLib::ShellOut.new("#{File.join(node.redis.dst_dir, 'bin/redis-server')}' --version").scan(/v=((\d+\.?){3})/).flatten.first
+      @@version.run_command
     end
 
     def set_installed_version(node)
