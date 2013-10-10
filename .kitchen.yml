@@ -1,5 +1,7 @@
 ---
 driver_plugin: vagrant
+driver_config:
+    use_vagrant_berkshelf_plugin: true
 
 platforms:
 <% %w(11.6.0).each do |chef_version| %>
